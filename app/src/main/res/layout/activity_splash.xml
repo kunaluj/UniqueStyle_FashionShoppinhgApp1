@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SplashActivity">
+
+    <ImageView
+        android:id="@+id/ivSplashLogo"
+        android:layout_width="236dp"
+        android:layout_height="204dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="203dp"
+        android:layout_marginEnd="74dp"
+        android:src="@drawable/splashlogo" />
+
+    <TextView
+        android:id="@+id/tvSplashTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ivSplashLogo"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/dm_serif_display_italic"
+        android:text="UniqueStyle"
+        android:textAlignment="center"
+        android:textColor="@color/background"
+        android:textSize="42dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvSplashSubTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvSplashTitle"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="0dp"
+        android:fontFamily="@font/griffy"
+        android:text="Wear The Trend"
+        android:textAlignment="center"
+        android:textColor="@color/normalpurple"
+        android:textSize="50dp"
+        android:textStyle="bold" />
+
+
+</RelativeLayout>
