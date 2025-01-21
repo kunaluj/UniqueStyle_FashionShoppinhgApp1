@@ -22,8 +22,14 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import cz.msebera.android.httpclient.Header;
 
 public class LoginActivity extends AppCompatActivity {
     ImageView ivLogo;
@@ -90,6 +96,8 @@ public class LoginActivity extends AppCompatActivity {
                     progressDialog.setMessage("Login Under Progress");
                     progressDialog.show();
 
+                    userLogin();
+
 
                 }
 
@@ -104,10 +112,53 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    private void userLogin() {
+        AsyncHttpClient client= new AsyncHttpClient();
+        RequestParams params =new RequestParams();
+
+        params.put("username",etUsername.getText().toString());
+        params.put("password",etPassword.getText().toString());
+
+        client.post("http://172.20.10.2:80/UniqueStyle_FashionShoppingAppAPI/userLogin.php",params,new JsonHttpResponseHandler()
+                {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        super.onSuccess(statusCode, headers, response);
+                        progressDialog.dismiss();
+                        try {
+                            String status = response.getString("success");
+                            if (status.equals("1"))
+                            {
+                                Intent intent=new Intent(LoginActivity.this,HomeActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                            else
+                            {
+                                Toast.makeText(LoginActivity.this,"Invalid Username or Password",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                        super.onFailure(statusCode, headers, throwable, errorResponse);
+                        progressDialog.dismiss();
+                        Toast.makeText(LoginActivity.this,"Server Error",
+                                Toast.LENGTH_SHORT).show();
 
 
+                    }
+                }
 
 
+        );
 
     }
+
+
+}
 
